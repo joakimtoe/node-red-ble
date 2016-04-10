@@ -1,6 +1,6 @@
 module.exports = function(RED) {
     "use strict";
-    var UartBLE = require("uartble");
+    var UartBLE = require("node-uartble");
 
     function UartBLENode(n) {
         RED.nodes.createNode(this,n);
