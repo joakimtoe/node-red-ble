@@ -1,15 +1,15 @@
 <script type="text/x-red" data-template-name="uartBLE">
     <div class="form-row">
-        <label for="node-input-uuid"><i class="fa fa-ellipsis-h"></i> BLE Addr</label>
-        <input type="text" id="node-input-uuid" placeholder="optional bluetooth device address">
+        <label for="uartble-dev-addr"><i class="fa fa-ellipsis-h"></i> BLE Addr</label>
+        <input type="text" id="uartble-dev-addr" placeholder="optional bluetooth device address">
     </div>
     <div class="form-row">
-        <label for="node-input-topic"><i class="fa fa-tasks"></i> Topic</label>
-        <input type="text" id="node-input-topic" placeholder="optional topic prefix - defaults to device id">
+        <label for="uartble-topic"><i class="fa fa-tasks"></i> Topic</label>
+        <input type="text" id="uartble-topic" placeholder="optional topic prefix - defaults to device id">
     </div>
     <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
+        <label for="uartble-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="uartble-name" placeholder="Name">
     </div>
 </script>
 
@@ -27,9 +27,9 @@
         defaults:{
             name:{value:""},
             topic:{value:"uartBLE"},
-            uuid:{value:undefined}
+            ble_addr:{value:undefined}
         },
-        inputs:0,
+        inputs:1,
         outputs:1,
         icon:"bluetooth.png",
         label:function() {
@@ -39,7 +39,7 @@
             return this.name?"node_label_italic":"";
         },
         oneditsave:function() {
-            var mac = $("#node-input-uuid").val();
+            var mac = $("#uartble-dev-addr").val();
             mac = mac.toLowerCase();
             // nasty hack as I can't get global replace to work
             mac = mac.replace(/:/gi,'');
@@ -47,7 +47,7 @@
             mac = mac.replace(/:/gi,'');
             mac = mac.replace(/:/gi,'');
             mac = mac.toLowerCase();
-            $("#node-input-uuid").val(mac);
+            $("#uartble-dev-addr").val(mac);
         }
     });
 </script>
