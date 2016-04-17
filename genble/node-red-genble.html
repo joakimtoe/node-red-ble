@@ -1,0 +1,75 @@
+<script type="text/x-red" data-template-name="genericBLE">
+    <div class="form-row">
+        <label for="node-input-serviceuuid"><i class="fa fa-ellipsis-h"></i> Service UUID</label>
+        <input type="text" id="node-input-serviceuuid" placeholder="Service UUID">
+    </div>
+    <div class="form-row">
+        <label for="node-input-charuuid"><i class="fa fa-ellipsis-h"></i> Char UUID</label>
+        <input type="text" id="node-input-charuuid" placeholder="Characteristic UUID">
+    </div>
+    <div class="form-row">
+        <label for="node-input-bleaddr"><i class="fa fa-ellipsis-h"></i> Dev Addr</label>
+        <input type="text" id="node-input-bleaddr" placeholder="optional bluetooth device address">
+    </div>
+    <div class="form-row">
+        <label for="node-input-bleaddr"><i class="fa fa-external-link"></i> Char type</label>
+        <input type="checkbox" id="node-input-readtype" style="display:inline-block; width:auto; vertical-align:top;"> Read<br/>
+        <label>&nbsp;</label>
+        <input type="checkbox" id="node-input-writetype" style="display:inline-block; width:auto; vertical-align:top;"> Write<br/>
+        <label>&nbsp;</label>
+        <input type="checkbox" id="node-input-notiftype" style="display:inline-block; width:auto; vertical-align:top;"> Notification<br/>
+        <label>&nbsp;</label>
+    </div>
+    <div class="form-row">
+        <label for="node-input-topic"><i class="fa fa-tasks"></i> Topic</label>
+        <input type="text" id="node-input-topic" placeholder="optional topic prefix - defaults to device id">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="genericBLE">
+   <p>Node to read/write from the BLE devices.</p>
+   <p>The BLE Device Addr field is the bluetooth mac address of the kit, this is optional
+      and can be used to bind to a specific BLE device if you have more than one with the same Service UUID
+      active in range at the same time.</p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('genericBLE',{
+        category:'advanced-function',
+        color:"#99ccff",
+        defaults:{
+            name:{value:""},
+            topic:{value:"genericBLE"},
+            bleaddr:{value:undefined},
+            serviceuuid:{value:undefined},
+            charuuid:{value:undefined},
+            readtype:{value:false},
+            writetype:{value:true},
+            notiftype:{value:true}
+        },
+        inputs:1,
+        outputs:1,
+        icon:"bluetooth.png",
+        label:function() {
+            return this.name||this.topic||"genericBLE";
+        },
+        labelStyle:function() {
+            return this.name?"node_label_italic":"";
+        },
+        oneditsave:function() {
+            var mac = $("#node-input-bleaddr").val();
+            mac = mac.toLowerCase();
+            // nasty hack as I can't get global replace to work
+            mac = mac.replace(/:/gi,'');
+            mac = mac.replace(/:/gi,'');
+            mac = mac.replace(/:/gi,'');
+            mac = mac.replace(/:/gi,'');
+            mac = mac.toLowerCase();
+            $("#node-input-bleaddr").val(mac);
+        }
+    });
+</script>
